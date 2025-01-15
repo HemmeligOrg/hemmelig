@@ -157,7 +157,7 @@ const Home = () => {
                                 value={formData.title}
                                 onChange={(e) => setField('formData.title', e.target.value)}
                                 readOnly={inputReadOnly}
-                                className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md 
+                                className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md
                                          focus:ring-2 focus:ring-hemmelig focus:border-transparent
                                          text-base text-gray-100 placeholder-gray-500"
                             />
@@ -229,7 +229,7 @@ const Home = () => {
                                             setField('formData.password', e.target.value)
                                         }
                                         readOnly={inputReadOnly}
-                                        className="w-full pl-10 pr-10 bg-gray-800 border border-gray-700 
+                                        className="w-full pl-10 pr-10 bg-gray-800 border border-gray-700
                                                  rounded-lg text-gray-100 placeholder-gray-500
                                                  focus:border-primary focus:ring-1 focus:ring-primary"
                                         placeholder={t('home.password')}
@@ -240,25 +240,29 @@ const Home = () => {
                                 </div>
                             )}
 
-                            <div className="relative">
-                                <div className="absolute left-3 top-[13px] text-gray-400 pointer-events-none">
-                                    <IconNetwork size={18} />
+                            {!settings.hide_allowed_ip_input && (
+                                <div className="relative">
+                                    <div className="absolute left-3 top-[13px] text-gray-400 pointer-events-none">
+                                        <IconNetwork size={18} />
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name="allowedIp"
+                                        placeholder="0.0.0.0/0"
+                                        value={formData.allowedIp}
+                                        onChange={(e) =>
+                                            setField('formData.allowedIp', e.target.value)
+                                        }
+                                        readOnly={inputReadOnly}
+                                        className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md
+                                                 focus:ring-2 focus:ring-hemmelig focus:border-transparent
+                                                 text-base text-gray-100 placeholder-gray-500"
+                                    />
+                                    <p className="mt-2 text-xs text-gray-400">
+                                        {t('home.restrict_from_ip')}
+                                    </p>
                                 </div>
-                                <input
-                                    type="text"
-                                    name="allowedIp"
-                                    placeholder="0.0.0.0/0"
-                                    value={formData.allowedIp}
-                                    onChange={(e) => setField('formData.allowedIp', e.target.value)}
-                                    readOnly={inputReadOnly}
-                                    className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md
-                                             focus:ring-2 focus:ring-hemmelig focus:border-transparent
-                                             text-base text-gray-100 placeholder-gray-500"
-                                />
-                                <p className="mt-2 text-xs text-gray-400">
-                                    {t('home.restrict_from_ip')}
-                                </p>
-                            </div>
+                            )}
                         </div>
 
                         <div className="space-y-4">

@@ -53,6 +53,8 @@
             "disable_signin": "Should user sign in be disabled?",
             "disable_user_account_creation": "Disable user account creation",
             "disable_user_account_creation_description": "Do not allow users to create a new account. As an admin, you will still be able to create new user accounts",
+            "hide_allowed_ip_input": "Disable IP restriction",
+            "hide_allowed_ip_input_description": "Hide the allowed IPs input field in the secret creation form",
             "disable_file_upload": "Disable file upload",
             "disable_file_upload_description": "Disable file upload for your instance",
             "restrict_organization_email": "Restrict to email domain",
@@ -224,6 +226,9 @@
     },
     "terms": {
         "title": "Terms & conditions"
+    },
+    "imprint": {
+        "title": "Imprint"
     },
     "not_found": {
         "title": "Page Not Found",
