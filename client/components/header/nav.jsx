@@ -32,14 +32,14 @@ const Nav = ({ opened, toggle, isLoggedIn }) => {
             icon: <IconLockOff size="1rem" stroke={1.5} />,
             to: '/signout',
         });
-    }
-
-    navItems.push(
-        {
+        navItems.push({
             label: t('account.home.title'),
             icon: <IconUser size="1rem" stroke={1.5} />,
             to: '/account',
-        },
+        });
+    }
+
+    navItems.push(
         {
             label: t('public_list'),
             icon: <IconList size="1rem" stroke={1.5} />,
