@@ -251,7 +251,7 @@ const Home = () => {
                                     value={formData.allowedIp}
                                     onChange={(e) => setField('formData.allowedIp', e.target.value)}
                                     readOnly={inputReadOnly}
-                                    className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md 
+                                    className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md
                                              focus:ring-2 focus:ring-hemmelig focus:border-transparent
                                              text-base text-gray-100 placeholder-gray-500"
                                 />
@@ -284,24 +284,28 @@ const Home = () => {
                                 </p>
                             </div>
 
-                            <div className="relative">
-                                <div className="absolute left-3 top-[13px] text-gray-400 pointer-events-none">
-                                    <IconEye size={18} />
+                            {!formData.preventBurn && (
+                                <div className="relative">
+                                    <div className="absolute left-3 top-[13px] text-gray-400 pointer-events-none">
+                                        <IconEye size={18} />
+                                    </div>
+                                    <input
+                                        type="number"
+                                        name="maxViews"
+                                        value={formData.maxViews}
+                                        onChange={(e) =>
+                                            setField('formData.maxViews', e.target.value)
+                                        }
+                                        min="1"
+                                        max="999"
+                                        className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md
+                                                 text-gray-100 focus:border-primary focus:ring-1 focus:ring-primary"
+                                    />
+                                    <p className="mt-2 text-xs text-gray-400">
+                                        {t('home.max_views_description')}
+                                    </p>
                                 </div>
-                                <input
-                                    type="number"
-                                    name="maxViews"
-                                    value={formData.maxViews}
-                                    onChange={(e) => setField('formData.maxViews', e.target.value)}
-                                    min="1"
-                                    max="999"
-                                    className="w-full pl-10 pr-3 py-2.5 bg-gray-800 border border-gray-700 rounded-md
-                                             text-gray-100 focus:border-primary focus:ring-1 focus:ring-primary"
-                                />
-                                <p className="mt-2 text-xs text-gray-400">
-                                    {t('home.max_views_description')}
-                                </p>
-                            </div>
+                            )}
 
                             <div className="flex items-center justify-between p-3 bg-black/20 rounded-lg border border-white/[0.08]">
                                 <div className="flex items-center space-x-3">

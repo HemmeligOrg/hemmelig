@@ -1,19 +1,24 @@
 import { IconFingerprint, IconList, IconLockOff, IconLogin, IconUser } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import useSettingsStore from '../../stores/settingsStore.js';
 
 const Nav = ({ opened, toggle, isLoggedIn }) => {
     const { t } = useTranslation();
 
+    const { settings } = useSettingsStore();
     const navItems = [];
 
-    if (!isLoggedIn) {
+    const hideSignUp =
+        isLoggedIn || settings.disable_user_account_creation || settings.disable_users;
+    if (!hideSignUp) {
         navItems.push({
             label: t('sign_up'),
             icon: <IconUser size="1rem" stroke={1.5} />,
             to: '/signup',
         });
-
+    }
+    if (!isLoggedIn) {
         navItems.push({
             label: t('sign_in'),
             icon: <IconLogin size="1rem" stroke={1.5} />,

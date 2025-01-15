@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate } from 'react-router-dom';
 
-import { IconFingerprint, IconList, IconLockOff, IconLogin, IconUser } from '@tabler/icons';
 import { refresh } from '../../api/authentication.js';
 import { getCookie, refreshCookie } from '../../helpers/cookie';
 import useAuthStore from '../../stores/authStore';
@@ -168,34 +167,6 @@ const Header = () => {
             </header>
         </>
     );
-};
-
-const NavLinks = ({ mobile, onClick }) => {
-    const { t } = useTranslation();
-    const { isLoggedIn } = useAuthStore();
-
-    const links = [
-        !isLoggedIn && { label: t('sign_up'), icon: IconUser, to: '/signup' },
-        !isLoggedIn && { label: t('sign_in'), icon: IconLogin, to: '/signin' },
-        isLoggedIn && { label: t('sign_out'), icon: IconLockOff, to: '/signout' },
-        { label: t('account.home.title'), icon: IconUser, to: '/account' },
-        { label: t('public_list'), icon: IconList, to: '/public' },
-        { label: t('privacy.title'), icon: IconFingerprint, to: '/privacy' },
-    ].filter(Boolean);
-
-    return links.map((link) => (
-        <Link
-            key={link.to}
-            to={link.to}
-            onClick={onClick}
-            className={`flex items-center gap-2 px-4 py-2 text-gray-300 rounded-md
-                     hover:text-white hover:bg-gray-800 transition-colors duration-200
-                     ${mobile ? 'w-full' : ''}`}
-        >
-            <link.icon size={16} className="text-gray-400" />
-            <span className="text-sm font-medium">{link.label}</span>
-        </Link>
-    ));
 };
 
 export default Header;
