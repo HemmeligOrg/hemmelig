@@ -2,6 +2,14 @@ import { useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+// https://github.com/zenoamaro/react-quill/issues/836#issuecomment-2440290893
+class ReactQuillFixed extends ReactQuill {
+    destroyEditor() {
+        super.destroyEditor();
+        delete this.editor;
+    }
+}
+
 const Quill = ({ value, onChange, readOnly, defaultValue }) => {
     const quillRef = useRef(null);
     // Define modules based on readOnly state
@@ -21,7 +29,7 @@ const Quill = ({ value, onChange, readOnly, defaultValue }) => {
 
     return (
         <div className="bg-gray-800 border border-gray-700 rounded-md overflow-hidden">
-            <ReactQuill
+            <ReactQuillFixed
                 ref={quillRef}
                 value={value || ''}
                 onChange={onChange}
