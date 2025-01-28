@@ -33,7 +33,7 @@ COPY package*.json ./
 
 RUN npm ci --production --ignore-scripts
 
-RUN chown -R node:node ./
+RUN chown -R node.node ./
 
 COPY . .
 
