@@ -54,6 +54,8 @@
             "disable_user_account_creation_description": "Benutzern nicht erlauben, ein neues Konto zu erstellen. Als Administrator können Sie weiterhin neue Benutzerkonten erstellen",
             "disable_file_upload": "Dateiupload deaktivieren",
             "disable_file_upload_description": "Deaktivieren Sie den Dateiupload für Ihre Instanz",
+            "hide_allowed_ip_input": "Beschränkung auf IPs deaktivieren",
+            "hide_allowed_ip_input_description": "Eingabefeld für die Beschränkung auf erlaubte IP-Adressen ausblenden",
             "restrict_organization_email": "E-Mail-Domäne einschränken",
             "restrict_organization_email_description": "Dies wird die Benutzerregistrierung für eine bestimmte E-Mail-Domäne einschränken"
         },

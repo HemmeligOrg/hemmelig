@@ -18,6 +18,7 @@ async function settings(fastify) {
                     id: 'admin_settings',
                     disable_users: false,
                     disable_user_account_creation: false,
+                    hide_allowed_ip_input: false,
                     read_only: false,
                     disable_file_upload: false,
                     restrict_organization_email: '',
@@ -42,6 +43,7 @@ async function settings(fastify) {
                     properties: {
                         disable_users: { type: 'boolean', default: false },
                         disable_user_account_creation: { type: 'boolean', default: false },
+                        hide_allowed_ip_input: { type: 'boolean', default: false },
                         read_only: { type: 'boolean', default: false },
                         disable_file_upload: { type: 'boolean', default: false },
                         restrict_organization_email: { type: 'string', default: '' },
@@ -60,6 +62,7 @@ async function settings(fastify) {
                 const {
                     disable_users,
                     disable_user_account_creation,
+                    hide_allowed_ip_input,
                     read_only,
                     disable_file_upload,
                     restrict_organization_email,
@@ -72,6 +75,7 @@ async function settings(fastify) {
                     update: {
                         disable_users,
                         disable_user_account_creation,
+                        hide_allowed_ip_input,
                         read_only,
                         disable_file_upload,
                         restrict_organization_email: getEmailDomain(restrict_organization_email),
@@ -80,6 +84,7 @@ async function settings(fastify) {
                         id: 'admin_settings',
                         disable_users,
                         disable_user_account_creation,
+                        hide_allowed_ip_input,
                         read_only,
                         disable_file_upload,
                         restrict_organization_email: getEmailDomain(restrict_organization_email),

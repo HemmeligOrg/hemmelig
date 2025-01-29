@@ -23,7 +23,7 @@ RUN npm run build
 # Get ready for step two of the docker image build
 FROM node:20-alpine
 
-RUN apk add curl
+RUN apk add curl openssl --no-cache
 
 WORKDIR /home/node/hemmelig
 
@@ -33,9 +33,10 @@ COPY package*.json ./
 
 RUN npm ci --production --ignore-scripts
 
-RUN chown -R node.node ./
+RUN chown -R node:node ./
 
 COPY . .
+RUN rm -f *.mp4 *.gif
 
 RUN npx prisma generate
 

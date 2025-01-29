@@ -142,6 +142,31 @@ const Settings = () => {
                     </div>
                 </div>
 
+                {/* Disable allowed IP restriction */}
+                <div className="flex items-start space-x-3">
+                    <input
+                        type="checkbox"
+                        id="hide_allowed_ip_input"
+                        checked={formData.hide_allowed_ip_input}
+                        onChange={(e) =>
+                            setFormData({ ...formData, hide_allowed_ip_input: e.target.checked })
+                        }
+                        className="mt-1 rounded border-gray-700 bg-gray-800 text-blue-500
+                                 focus:ring-blue-500 focus:ring-offset-gray-900"
+                    />
+                    <div>
+                        <label
+                            htmlFor="hide_allowed_ip_input"
+                            className="block text-sm font-medium text-gray-200"
+                        >
+                            {t('account.settings.hide_allowed_ip_input')}
+                        </label>
+                        <p className="text-sm text-gray-400">
+                            {t('account.settings.hide_allowed_ip_input_description')}
+                        </p>
+                    </div>
+                </div>
+
                 {/* Disable File Upload */}
                 <div className="flex items-start space-x-3">
                     <input

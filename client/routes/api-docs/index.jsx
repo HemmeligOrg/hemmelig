@@ -455,6 +455,7 @@ const ApiDocs = () => {
                                             {
                                                 disable_users: 'required boolean',
                                                 disable_user_account_creation: 'required boolean',
+                                                hide_allowed_ip_input: 'optional boolean',
                                                 read_only: 'required boolean',
                                                 disable_file_upload: 'required boolean',
                                                 restrict_organization_email: 'optional string',
