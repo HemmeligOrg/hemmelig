@@ -31,51 +31,60 @@ async function getSecretRoute(request, reply) {
         return reply.code(403).send({ error: 'Not a valid secret ID' });
     }
 
-    const data = await prisma.secret.findFirst({
-        where: {
-            id,
-            expiresAt: { gte: new Date() },
-        },
-        include: { files: true },
+    // Use a transaction to ensure atomicity of read and delete operations
+    const result = await prisma.$transaction(async (tx) => {
+        const data = await tx.secret.findFirst({
+            where: {
+                id,
+                expiresAt: { gte: new Date() },
+            },
+            include: { files: true },
+        });
+
+        if (!data) {
+            return { error: 'Secret not found', status: 404 };
+        }
+
+        if (data.password) {
+            const isPasswordValid = await compare(password, data.password);
+            if (!isPasswordValid) {
+                return { error: 'Wrong password!', status: 401 };
+            }
+        }
+
+        // Handle view count and deletion within the same transaction
+        if (data.maxViews > 1) {
+            await tx.secret.update({
+                where: { id: data.id },
+                data: {
+                    maxViews: {
+                        decrement: 1,
+                    },
+                },
+            });
+        } else if (!data.preventBurn && data.maxViews === 1) {
+            await tx.file.deleteMany({ where: { secretId: id } });
+            await tx.secret.delete({ where: { id } });
+        }
+
+        return {
+            success: true,
+            data: {
+                title: data.title,
+                preventBurn: data.preventBurn,
+                maxViews: data.maxViews,
+                secret: data.data,
+                files: data.files,
+                isPublic: data.isPublic,
+            },
+        };
     });
 
-    if (!data) {
-        return reply.code(404).send({ error: 'Secret not found' });
+    if (result.error) {
+        return reply.code(result.status).send({ error: result.error });
     }
 
-    if (data.password) {
-        const isPasswordValid = await compare(password, data.password);
-        if (!isPasswordValid) {
-            return reply.code(401).send({ error: 'Wrong password!' });
-        }
-    }
-
-    if (data.maxViews > 1) {
-        await prisma.secret.update({
-            where: {
-                id: data.id,
-            },
-            data: {
-                maxViews: {
-                    decrement: 1,
-                },
-            },
-        });
-    }
-
-    if (!data.preventBurn && data.maxViews === 1) {
-        await prisma.file.deleteMany({ where: { secretId: id } });
-        await prisma.secret.delete({ where: { id } });
-    }
-
-    return {
-        title: data.title,
-        preventBurn: data.preventBurn,
-        maxViews: data.maxViews,
-        secret: data.data,
-        files: data.files,
-        isPublic: data.isPublic,
-    };
+    return result.data;
 }
 
 async function secret(fastify) {
